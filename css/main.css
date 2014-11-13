@@ -1,0 +1,36 @@
+#gameboard {
+	border-color: BLACK;
+	border-style: solid;
+	border-width: 5px;
+	display: none;
+	height: 400px;
+	margin-left: auto;
+	margin-right: auto;
+	position: relative;
+	width: 400px;
+}
+
+#gamecontent {
+	text-align: center;
+}
+
+h1 {
+	text-align: center;
+}
+
+.solved {
+	border-color: BLACK !important;
+}
+
+.tile {
+	border-color: WHITE;
+	border-style: solid;
+	border-width: 5px;
+	height: 90;
+	position: absolute;
+	width: 90;
+}
+
+#timer {
+	display: none;
+}
