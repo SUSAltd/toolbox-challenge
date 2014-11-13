@@ -18,6 +18,10 @@ h1 {
 	text-align: center;
 }
 
+.incorrect {
+	border-color: RED !important;
+}
+
 .solved {
 	border-color: BLACK !important;
 }
@@ -33,4 +37,13 @@ h1 {
 
 #timer {
 	display: none;
+	font-size: 1.5em;
+	font-weight: bold;
+	margin-top: 1em;
+}
+
+#win {
+	display: none;
+	font-size: 1.5em;
+	font-weight: bold;
 }

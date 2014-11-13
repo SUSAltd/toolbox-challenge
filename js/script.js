@@ -3,7 +3,7 @@
 var NUMBER_OF_POTENTIAL_TILES = 32; // in Javascript -- not ideal
 var BOARD_SIZE = 4;
 var TILE_SIZE_PIXELS_DEFAULT = 400;
-var BOARD_TO_WINDOW_RATIO = 0.75;
+var BOARD_TO_WINDOW_RATIO = 0.6;
 var BORDER_TO_TILE_RATIO = 0.05;
 
 var tilesFlipped = [];
@@ -77,14 +77,17 @@ function resetBoard() {
 				
 				// check if tiles are different (wrong)
 				if ($(tile1).data("tileInfo").tilenum !== $(tile2).data("tileInfo").tilenum) {
+					$(tile1).addClass("incorrect");
+					$(tile2).addClass("incorrect");
 					tilesFlipped.pop();
 					tilesFlipped.pop();
 					setTimeout(function() {
+						$(tile1).removeClass("incorrect");
+						$(tile2).removeClass("incorrect");
 						tile1.setFacedown();
 						tile2.setFacedown();
-					}, 1000); // stay flipped for one second
-				// tiles are same (correct)
-				} else { 
+					}, 1000); // flip down after one second
+				} else { // tiles are same (correct)
 					$(tile1).addClass("solved");
 					$(tile2).addClass("solved");
 				}
@@ -129,6 +132,30 @@ function resizeBoard() {
 }
 
 function win() {
-	clearInterval(timer);
-	alert("hooray");
+	clearInterval(timer); // stop timer
+	$("#win").css("display", "inherit");
+	$("#timer").css("color", "GREEN");
+	var edge = 0;
+	setInterval(function() {
+		var board = $("#gameboard");
+		board.css("border-color", "BLACK");
+		switch (edge) {
+			case 0:
+				board.css("border-left-color", "RED");
+				edge++;
+				break;
+			case 1:
+				board.css("border-top-color", "GREEN");
+				edge++;
+				break;
+			case 2:
+				board.css("border-right-color", "YELLOW");
+				edge++;
+				break;
+			case 3:
+				board.css("border-bottom-color", "BLUE");
+				edge = 0;
+				break;
+		}
+	}, 250);
 }
