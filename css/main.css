@@ -1,17 +1,13 @@
 #gameboard {
 	border-color: BLACK;
+	border-radius: 3px;
 	border-style: solid;
 	border-width: 5px;
-	display: none;
 	height: 400px;
 	margin-left: auto;
 	margin-right: auto;
 	position: relative;
 	width: 400px;
-}
-
-#maincontent {
-	text-align: center;
 }
 
 h1, h2 {
@@ -22,7 +18,7 @@ h1, h2 {
 	border-color: RED !important;
 }
 
-.infobox {
+.infobox, .statsbox {
 	background-color: #DDDDDD;
 	border-color: #666666;
 	border-style: solid;
@@ -31,13 +27,43 @@ h1, h2 {
 	margin: 20px;
 	margin-left: auto;
 	margin-right: auto;
-	padding: 5px;
+	padding: 7px;
 	text-align: center;
 	width: 50%;
 }
 
+#maincontent {
+	text-align: center;
+}
+
 .solved {
 	border-color: BLACK !important;
+}
+
+.statsbox {
+	display: inline-block;
+	margin-bottom: 0px;
+	overflow: hidden;
+	width: auto;
+}
+
+.statsbox dd, .statsbox dt {
+	float: left;
+	margin: 0;
+	margin-right: 0.5em;
+}
+
+.statsbox dd {
+	font-weight: bold;
+	margin-right: 1.3em;
+}
+
+.statsbox dd:last-child {
+	margin: 0;
+}
+
+.statsbox dl {
+	margin: 0;
 }
 
 .tile {
@@ -53,11 +79,13 @@ h1, h2 {
 	display: none;
 	font-size: 1.5em;
 	font-weight: bold;
-	margin-top: 1em;
+	margin: 0.5em;
+	margin-bottom: 0;
 }
 
 #win {
 	display: none;
 	font-size: 1.5em;
 	font-weight: bold;
+	margin: 0.3em;
 }

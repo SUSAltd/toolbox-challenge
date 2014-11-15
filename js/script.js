@@ -11,12 +11,15 @@ var time;
 var timer;
 
 $(document).ready(function() {
+	$(".statsbox").css("display", "none");
+	$("#gameboard").css("display", "none");
 	$("#startbutton").click(startGame);
 	$(window).resize(resizeBoard);
 });
 
 function startGame() {
-	$("#gameboard").css("display", "inherit");
+	$("#gameboard").css("display", "");
+	$(".statsbox").css("display", "");
 	$("#startbutton").css("display", "none");
 	
 	resetBoard();
@@ -46,6 +49,7 @@ function resetBoard() {
 		tileNumbers.splice(iDel, 1); // delete number at that index
 	}
 	var tileNumsDouble = _.shuffle(tileNumbers.concat(tileNumbers)); // create shuffled pairs of numbers
+	$("#stomatch").text(tileNumsDouble.length);
 	
 	// add the tiles to the board
 	var gameboard = $("#gameboard");
@@ -77,6 +81,8 @@ function resetBoard() {
 				
 				// check if tiles are different (wrong)
 				if ($(tile1).data("tileInfo").tilenum !== $(tile2).data("tileInfo").tilenum) {
+					var fails = $("#sfails").text();
+					$("#sfails").text(parseInt(fails) + 1);
 					$(tile1).addClass("incorrect");
 					$(tile2).addClass("incorrect");
 					tilesFlipped.pop();
@@ -88,6 +94,11 @@ function resetBoard() {
 						tile2.setFacedown();
 					}, 1000); // flip down after one second
 				} else { // tiles are same (correct)
+					var total = tileNumsDouble.length;
+					var tomatch = parseInt($("#stomatch").text()) - 2;
+					var matched = total - tomatch;
+					$("#stomatch").text(tomatch);
+					$("#smatched").text(matched);
 					$(tile1).addClass("solved");
 					$(tile2).addClass("solved");
 				}
