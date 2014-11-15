@@ -21,7 +21,7 @@ $(document).ready(function() {
 
 function startGame() {
 	$("#gameboard").css("display", "");
-	$("#gameboard").css("border-color", "BLACK");
+	// $("#gameboard").css("border-color", "BLACK");
 	$(".statsbox").css("display", "");
 	$("#win").css("display", "");
 	$("#timer").css("color", "");
@@ -167,27 +167,27 @@ function win() {
 	clearInterval(timer); // stop timer
 	$("#win").css("display", "inherit");
 	$("#timer").css("color", "GREEN");
-	var edge = 0;
-	winTimer = setInterval(function() {
-		var board = $("#gameboard");
-		board.css("border-color", "BLACK");
-		switch (edge) {
-			case 0:
-				board.css("border-left-color", "RED");
-				edge++;
-				break;
-			case 1:
-				board.css("border-top-color", "GREEN");
-				edge++;
-				break;
-			case 2:
-				board.css("border-right-color", "YELLOW");
-				edge++;
-				break;
-			case 3:
-				board.css("border-bottom-color", "BLUE");
-				edge = 0;
-				break;
-		}
-	}, 250);
+	// var edge = 0;
+	// winTimer = setInterval(function() {
+		// var board = $("#gameboard");
+		// board.css("border-color", "BLACK");
+		// switch (edge) {
+			// case 0:
+				// board.css("border-left-color", "RED");
+				// edge++;
+				// break;
+			// case 1:
+				// board.css("border-top-color", "GREEN");
+				// edge++;
+				// break;
+			// case 2:
+				// board.css("border-right-color", "YELLOW");
+				// edge++;
+				// break;
+			// case 3:
+				// board.css("border-bottom-color", "BLUE");
+				// edge = 0;
+				// break;
+		// }
+	// }, 250);
 }
