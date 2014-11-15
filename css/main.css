@@ -18,13 +18,16 @@ h1, h2 {
 	border-color: RED !important;
 }
 
+.infobox, #startbutton, #statsboxcontainer, #timer, #win {
+	margin-top: 0.4em;
+}
+
 .infobox, .statsbox {
 	background-color: #DDDDDD;
 	border-color: #666666;
 	border-style: solid;
 	border-width: 1px;
 	font-size: 12px;
-	margin: 20px;
 	margin-left: auto;
 	margin-right: auto;
 	padding: 7px;
@@ -42,7 +45,6 @@ h1, h2 {
 
 .statsbox {
 	display: inline-block;
-	margin-bottom: 0px;
 	overflow: hidden;
 	width: auto;
 }
@@ -50,7 +52,7 @@ h1, h2 {
 .statsbox dd, .statsbox dt {
 	float: left;
 	margin: 0;
-	margin-right: 0.5em;
+	margin-right: 0.4em;
 }
 
 .statsbox dd {
@@ -75,17 +77,22 @@ h1, h2 {
 	width: 90;
 }
 
+.tilehover, .tileselected {
+	border-color: #CCCCCC;
+}
+
+.tilehover {
+	cursor: pointer;
+}
+
 #timer {
 	display: none;
-	font-size: 1.5em;
+	font-size: 1.2em;
 	font-weight: bold;
-	margin: 0.5em;
-	margin-bottom: 0;
 }
 
 #win {
 	display: none;
-	font-size: 1.5em;
+	font-size: 1.7em;
 	font-weight: bold;
-	margin: 0.3em;
 }

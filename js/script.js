@@ -10,6 +10,8 @@ var tilesFlipped = [];
 var time;
 var timer;
 
+var winTimer;
+
 $(document).ready(function() {
 	$(".statsbox").css("display", "none");
 	$("#gameboard").css("display", "none");
@@ -19,24 +21,30 @@ $(document).ready(function() {
 
 function startGame() {
 	$("#gameboard").css("display", "");
+	$("#gameboard").css("border-color", "BLACK");
 	$(".statsbox").css("display", "");
-	$("#startbutton").css("display", "none");
+	$("#win").css("display", "");
+	$("#timer").css("color", "");
+	$("#startbutton").text("Restart!");
 	
 	resetBoard();
 	
 	// timer
+	clearInterval(timer); // clear any existing timer
+	clearInterval(winTimer);
 	var timerDiv = $("#timer");
 	timerDiv.css("display", "inherit");
 	time = 0;
+	timerDiv.text(time + " s"); // set to 0
 	timer = setInterval(function() {
 		time++;
-		timerDiv.html(time);
+		timerDiv.text(time + " s");
 	}, 1000);
 }
 
 function resetBoard() {
-	// numbers of all possible tiles
-	var tileNumbers = [];
+	tilesFlipped = []; // clear array
+	var tileNumbers = []; // numbers of all possible tiles
 	for (var i = 1; i < NUMBER_OF_POTENTIAL_TILES + 1; i++) {
 		tileNumbers.push(i);
 	}
@@ -49,35 +57,48 @@ function resetBoard() {
 		tileNumbers.splice(iDel, 1); // delete number at that index
 	}
 	var tileNumsDouble = _.shuffle(tileNumbers.concat(tileNumbers)); // create shuffled pairs of numbers
-	$("#stomatch").text(tileNumsDouble.length);
+	$("#stomatch").text(tileNumbers.length);
+	$("#smatched").text(0);
+	$("#sfails").text(0);
 	
 	// add the tiles to the board
 	var gameboard = $("#gameboard");
+	gameboard.empty();
 	for (var i = 0; i < tileNumsDouble.length; i++) {
 		var tile = document.createElement("img");
 		var tileInfo = {
+			"isFacedown": true,
 			"tilenum" : tileNumsDouble[i],
 		};
 		$(tile).addClass("tile");
 		$(tile).data("tileInfo", tileInfo);
-		
-		
+		$(tile).mouseover(function() {
+			if ($(this).data("tileInfo").isFacedown) {
+				$(this).addClass("tilehover");
+			}
+		});
+		$(tile).mouseout(function() {
+			$(this).removeClass("tilehover");
+		});
 
 		tile.setFacedown = function() {
-			$(this).data("tileInfo").facedown = true;
+			$(this).data("tileInfo").isFacedown = true;
 			$(this).attr("src", "./img/tile-back.png");
 			$(this).on("click", this.setFaceup);
 		}
 
 		tile.setFaceup = function() {
 			$(this).off("click");
-			$(this).data("tileInfo").facedown = false;
+			$(this).data("tileInfo").isFacedown = false;
 			$(this).attr("src", "./img/tile" + $(this).data("tileInfo").tilenum + ".jpg");
+			$(this).addClass("tileselected");
 			tilesFlipped.push(this);
 			var arrLength = tilesFlipped.length;
 			if (arrLength % 2 === 0) {
 				var tile1 = tilesFlipped[arrLength - 1];
 				var tile2 = tilesFlipped[arrLength - 2];
+				$(tile1).removeClass("tileselected");
+				$(tile2).removeClass("tileselected");
 				
 				// check if tiles are different (wrong)
 				if ($(tile1).data("tileInfo").tilenum !== $(tile2).data("tileInfo").tilenum) {
@@ -94,8 +115,8 @@ function resetBoard() {
 						tile2.setFacedown();
 					}, 1000); // flip down after one second
 				} else { // tiles are same (correct)
-					var total = tileNumsDouble.length;
-					var tomatch = parseInt($("#stomatch").text()) - 2;
+					var total = tileNumbers.length;
+					var tomatch = parseInt($("#stomatch").text()) - 1;
 					var matched = total - tomatch;
 					$("#stomatch").text(tomatch);
 					$("#smatched").text(matched);
@@ -147,7 +168,7 @@ function win() {
 	$("#win").css("display", "inherit");
 	$("#timer").css("color", "GREEN");
 	var edge = 0;
-	setInterval(function() {
+	winTimer = setInterval(function() {
 		var board = $("#gameboard");
 		board.css("border-color", "BLACK");
 		switch (edge) {
